@@ -1,11 +1,12 @@
 import React from 'react';
+import './Footer.css';
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer style={{ textAlign: 'center', padding: '1rem', background: '#eee' }}>
-      <p>© 2025 ZenithCare. All rights reserved.</p>
+    <footer className="footer">
+      <p>&copy; 2025 ZenithCare. All rights reserved.</p>
     </footer>
   );
-}
+};
 
 export default Footer;

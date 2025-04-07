@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Appointments from './pages/Appointments';
 import Contact from './pages/Contact';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
