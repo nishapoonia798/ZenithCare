@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import './Navbar.css';
+import '../pages/Home';
+import '../pages/Appointments';
+import '../pages/Contact';
 
 const Navbar = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -13,15 +15,14 @@ const Navbar = () => {
     return (
         <nav className="navbar">
           <div className="navbar-left">
-            <img src={logo} alt="ZenithCare" className="logo-img" />
             <h1>ZenithCare</h1>
           </div>
     
           <div className="navbar-right">
             <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/appointments">Appointments</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
+              <li> <a href="../pages/Home.js">Home</a></li>
+              <li> <a href="../pages/Appointment.js">Book Appointment</a> </li>
+              <li> <a href="../pages/Contact.js">Contact</a></li>
             </ul>
     
             <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
