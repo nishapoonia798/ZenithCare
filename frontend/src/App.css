@@ -1,9 +1,24 @@
-
-.Navlist {
-  display: flex;
-  list-style: none;
-  text-align: center;
-  gap: 20px;
-  padding: 0;
-  margin: 0;
-}
+/* Default theme (light) */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --header-bg: #e0f7f7;
+    --footer-bg: #e0f7f7;
+  }
+  
+  [data-theme='dark'] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --header-bg: #062d2f;
+    --footer-bg: #062d2f;
+  }
+  
+  /* --header-bg: #062d2f; */
+  /* Apply them to body */
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+  }
+  

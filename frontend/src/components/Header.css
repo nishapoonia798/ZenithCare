@@ -1,0 +1,41 @@
+.header {
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 125px; /* Adjust size */
+    height: 125px; /* Same as width */
+    border-radius: 50%; /* Round shape */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .title {
+    font-size: 18px;
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
