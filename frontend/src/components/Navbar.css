@@ -6,6 +6,9 @@
     position: sticky;
     top: 80px; 
     z-index: 9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
 .nav-links {
@@ -37,4 +40,9 @@
   color: white;
   font-size: 18px;
   cursor: pointer;
+  margin-left: 5px;
+}
+
+.navbar .nav-links li:last-child {
+  margin-right: 0;
 }
