@@ -3,6 +3,7 @@ import './Navbar.css';
 import '../pages/Home';
 import '../pages/Appointments';
 import '../pages/Contact';
+import Search from './Search';
 
 const Navbar = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -14,25 +15,16 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-          <div className="navbar-left">
-            <h1>ZenithCare</h1>
-          </div>
-    
-          <div className="navbar-right">
             <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
               <li> <a href="../pages/Home.js">Home</a></li>
               <li> <a href="../pages/Appointment.js">Book Appointment</a> </li>
               <li> <a href="../pages/Contact.js">Contact</a></li>
-            </ul>
-    
-            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+              <li> <Search/> </li>
+              <li> <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
               {darkMode ? '☀️' : '🌙'}
-            </button>
-    
-            <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-              ☰
-            </button>
-          </div>
+            </button> </li> 
+              <li> <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>☰</button> </li> 
+            </ul>
         </nav>
     );
 };
