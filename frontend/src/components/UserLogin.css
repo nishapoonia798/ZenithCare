@@ -1,0 +1,18 @@
+.user-login {
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-icon {
+    font-size: 1.8rem;
+    color: white;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .user-icon:hover {
+    transform: scale(1.15);
+    color: #00ffd5;
+    cursor: pointer;
+  }
+  

@@ -1,19 +1,41 @@
-import React from 'react';
-import './Header.css';
+import React, {useState, useEffect} from 'react';
 import logo from './ZenithCareLogo.png';
-import Navbar from './Navbar'; // Make sure your logo is in this path
+import UserLogin from './UserLogin';
+import Search from './Search';
+import './Header.css';
 
 function Header() {
+  const [darkMode, setDarkMode] = useState(false);
+      const [menuOpen, setMenuOpen] = useState(false);
+  
+      useEffect(() => {
+          document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+      }, [darkMode]);
+
   return (
     <header className="header">
-      <div className="header-left">
+      <div className="left-section">
         <img src={logo} alt="ZenithCare logo" className="logo" />
-        <h1 className="title">Welcome to ZenithCare</h1>
+        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <li><a href="../pages/Home.js">Home</a></li>
+          <li><a href="../pages/Appointment.js">Book Appointment</a></li>
+          <li><a href="../pages/Contact.js">Contact</a></li>
+          <li className="search-bar"><Search /></li>
+        </ul>
       </div>
-      <div className="header-right">
-        <Navbar />
+
+      <div className="right-section">
+        <UserLogin />
+        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? '☀️' : '🌙'}
+        </button>
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </button>
       </div>
     </header>
+
+
   );
 }
 
