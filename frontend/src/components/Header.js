@@ -3,6 +3,7 @@ import logo from './ZenithCareLogo.png';
 import UserLogin from './UserLogin';
 import Search from './Search';
 import './Header.css';
+import Navbar from './Navbar';
 
 function Header() {
   const [darkMode, setDarkMode] = useState(false);
@@ -25,17 +26,16 @@ function Header() {
       </div>
 
       <div className="right-section">
-        <UserLogin />
         <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? '☀️' : '🌙'}
         </button>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
+        <Navbar/>
+        <UserLogin />
       </div>
     </header>
-
-
   );
 }
 

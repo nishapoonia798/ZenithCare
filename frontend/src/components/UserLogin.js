@@ -1,14 +1,15 @@
 import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './UserLogin.css';
 
 const UserLogin = () => {
   return (
     <div className="user-login">
-      <Link to="/login" title="Login">
+      {/* <Link to="/login" title="Login"> */}
+      <a href="/login"></a>
         <FaUserCircle className="user-icon" />
-      </Link>
+      {/* </Link> */}
     </div>
   );
 };
