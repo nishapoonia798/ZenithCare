@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-// import { Link } from 'react-router-dom';
 import './UserLogin.css';
 
 const UserLogin = () => {
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    useEffect(() => {
+      const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      setIsLoggedIn(loggedIn);
+    }, []);
+    const handleClick = () => {
+      if(isLoggedIn){
+        window.location.href = "/PatientInfoPage";
+      }else {
+        window.location.href = "/auth";
+      }
+    }
+    const handleLogout = () => {
+      setIsLoggedIn(false);
+      localStorage.removeItem('isLoggedIn');
+      setIsLoggedIn(false);
+      window.location.href = "/login";
+    };
   return (
     <div className="user-login">
-      {/* <Link to="/login" title="Login"> */}
-      <a href="/login"></a>
-        <FaUserCircle className="user-icon" />
-      {/* </Link> */}
+    <FaUserCircle className="user-icon" onClick={handleClick} />
+    {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
     </div>
   );
 };

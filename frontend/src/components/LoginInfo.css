@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .login-info-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-info-container h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .login-info-container label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+  }
+  
+  .login-info-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .login-info-container button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .login-info-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-status {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .registration-link {
+    text-align: center;
+    margin-top: 10px;
+  }

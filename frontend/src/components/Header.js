@@ -3,7 +3,6 @@ import logo from './ZenithCareLogo.png';
 import UserLogin from './UserLogin';
 import Search from './Search';
 import './Header.css';
-import Navbar from './Navbar';
 
 function Header() {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,7 +19,7 @@ function Header() {
         <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <li><a href="../pages/Home.js">Home</a></li>
           <li><a href="../pages/Appointment.js">Book Appointment</a></li>
-          <li><a href="../pages/Contact.js">Contact</a></li>
+          <li><a href="../pages/Contact.js">Contact Us</a></li>
           <li className="search-bar"><Search /></li>
         </ul>
       </div>
@@ -32,7 +31,6 @@ function Header() {
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
-        <Navbar/>
         <UserLogin />
       </div>
     </header>

@@ -16,3 +16,22 @@
     cursor: pointer;
   }
    */
+
+.user-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.user-icon {
+  font-size: 30px;
+  color: #007bff;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.user-icon:hover {
+  color: #0056b3;
+  transform: scale(1.1);
+}
