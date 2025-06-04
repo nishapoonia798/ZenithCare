@@ -9,6 +9,9 @@ const PatientInfoPage = () => {
   const [activeTab, setActiveTab] = useState('personal');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [documents, setDocuments] = useState([]);
+  const [showPreview, setShowPreview] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const [patientInfo, setPatientInfo] = useState({
     // Personal Information
@@ -85,6 +88,42 @@ const PatientInfoPage = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleFileUpload = (e) => {
+    const files = Array.from(e.target.files);
+    const newDocuments = files.map(file => ({
+      id: Math.random().toString(36).substr(2, 9),
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      file
+    }));
+
+    setDocuments(prev => [...prev, ...newDocuments]);
+
+    // Simulate upload progress
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 10;
+      setUploadProgress(progress);
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => setUploadProgress(0), 1000);
+      }
+    }, 200);
+  };
+
+  const removeDocument = (id) => {
+    setDocuments(prev => prev.filter(doc => doc.id !== id));
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   const renderPersonalInfo = () => (
@@ -291,6 +330,144 @@ const PatientInfoPage = () => {
     </div>
   );
 
+  const renderDocumentsSection = () => (
+    <div className="form-section">
+      <h3>Medical Documents</h3>
+      <div className="document-upload-area">
+        <label className="upload-label">
+          <input
+            type="file"
+            multiple
+            onChange={handleFileUpload}
+            accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+            className="file-input"
+          />
+          <div className="upload-placeholder">
+            <i className="upload-icon">📎</i>
+            <span>Drop files here or click to upload</span>
+            <small>Supported formats: PDF, JPG, PNG, DOC</small>
+          </div>
+        </label>
+
+        {uploadProgress > 0 && (
+          <div className="upload-progress">
+            <div
+              className="progress-bar"
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
+          </div>
+        )}
+
+        {documents.length > 0 && (
+          <div className="documents-list">
+            {documents.map(doc => (
+              <div key={doc.id} className="document-item">
+                <span className="document-icon">📄</span>
+                <div className="document-info">
+                  <span className="document-name">{doc.name}</span>
+                  <span className="document-size">{formatFileSize(doc.size)}</span>
+                </div>
+                <button
+                  className="remove-document"
+                  onClick={() => removeDocument(doc.id)}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderPreview = () => (
+    <div className="preview-overlay" onClick={() => setShowPreview(false)}>
+      <div className="preview-content" onClick={e => e.stopPropagation()}>
+        <h3>Patient Information Summary</h3>
+
+        <div className="preview-section">
+          <h4>Personal Information</h4>
+          <div className="preview-grid">
+            <div className="preview-item">
+              <label>Name:</label>
+              <span>{patientInfo.name}</span>
+            </div>
+            <div className="preview-item">
+              <label>Date of Birth:</label>
+              <span>{patientInfo.dateOfBirth}</span>
+            </div>
+            <div className="preview-item">
+              <label>Gender:</label>
+              <span>{patientInfo.gender}</span>
+            </div>
+            <div className="preview-item">
+              <label>Contact:</label>
+              <span>{patientInfo.contact}</span>
+            </div>
+            <div className="preview-item">
+              <label>Email:</label>
+              <span>{patientInfo.email}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="preview-section">
+          <h4>Medical Information</h4>
+          <div className="preview-grid">
+            <div className="preview-item">
+              <label>Blood Type:</label>
+              <span>{patientInfo.bloodType}</span>
+            </div>
+            <div className="preview-item">
+              <label>Allergies:</label>
+              <span>{patientInfo.allergies || 'None'}</span>
+            </div>
+            <div className="preview-item">
+              <label>Current Medications:</label>
+              <span>{patientInfo.currentMedications || 'None'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="preview-section">
+          <h4>Insurance Information</h4>
+          <div className="preview-grid">
+            <div className="preview-item">
+              <label>Provider:</label>
+              <span>{patientInfo.insuranceProvider}</span>
+            </div>
+            <div className="preview-item">
+              <label>Policy Number:</label>
+              <span>{patientInfo.policyNumber}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="preview-section">
+          <h4>Uploaded Documents ({documents.length})</h4>
+          <div className="preview-documents">
+            {documents.map(doc => (
+              <div key={doc.id} className="preview-document">
+                <span className="document-icon">📄</span>
+                <span>{doc.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="preview-actions">
+          <button className="secondary-button" onClick={() => setShowPreview(false)}>
+            Close
+          </button>
+          <button className="submit-button" onClick={handleSubmit}>
+            Confirm & Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="patient-info-container">
       <div className="patient-info-card">
@@ -314,26 +491,35 @@ const PatientInfoPage = () => {
           >
             Insurance
           </button>
+          <button
+            className={`tab ${activeTab === 'documents' ? 'active' : ''}`}
+            onClick={() => setActiveTab('documents')}
+          >
+            Documents
+          </button>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => { e.preventDefault(); setShowPreview(true); }}>
           <div className="tab-content">
             {activeTab === 'personal' && renderPersonalInfo()}
             {activeTab === 'medical' && renderMedicalInfo()}
             {activeTab === 'insurance' && renderInsuranceInfo()}
+            {activeTab === 'documents' && renderDocumentsSection()}
           </div>
 
           <div className="form-footer">
             <button
               type="submit"
-              className={`submit-button ${isSubmitting ? 'loading' : ''}`}
+              className="submit-button"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Information'}
+              Review Information
             </button>
           </div>
         </form>
       </div>
+
+      {showPreview && renderPreview()}
     </div>
   );
 };

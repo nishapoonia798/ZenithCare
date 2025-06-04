@@ -41,7 +41,8 @@
     font-size: 14px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 12px;
     border: 1px solid #dcdfe6;
@@ -50,7 +51,8 @@
     transition: all 0.3s ease;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
     border-color: #3498db;
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
     outline: none;
@@ -58,6 +60,41 @@
 
 .form-group input.error {
     border-color: #e74c3c;
+}
+
+.role-select {
+    background-color: white;
+    cursor: pointer;
+}
+
+.role-select:hover {
+    border-color: #3498db;
+}
+
+.checkbox-group {
+    margin: 20px 0;
+}
+
+.checkbox-label {
+    display: flex !important;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.password-input-container {
+    position: relative;
 }
 
 .error-message {
@@ -158,4 +195,29 @@
 
 .forgot-password:hover {
     color: #2c3e50 !important;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 30px 20px;
+    }
+
+    .login-card h2 {
+        font-size: 24px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .login-button {
+        padding: 10px;
+        font-size: 14px;
+    }
 }

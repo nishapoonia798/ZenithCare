@@ -4,7 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    role: 'patient',
+    rememberMe: false
+  });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(null);
@@ -28,9 +33,11 @@ const Login = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -46,9 +53,25 @@ const Login = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       if (formData.email === 'test@example.com' && formData.password === 'password') {
+        if (formData.rememberMe) {
+          localStorage.setItem('userEmail', formData.email);
+          localStorage.setItem('userRole', formData.role);
+        }
+
         login();
         setStatus({ type: 'success', message: 'Login successful!' });
-        setTimeout(() => navigate('/patient-info'), 1000);
+
+        // Redirect based on role
+        switch (formData.role) {
+          case 'doctor':
+            setTimeout(() => navigate('/doctor-dashboard'), 1000);
+            break;
+          case 'admin':
+            setTimeout(() => navigate('/admin-dashboard'), 1000);
+            break;
+          default:
+            setTimeout(() => navigate('/patient-info'), 1000);
+        }
       } else {
         setStatus({ type: 'error', message: 'Invalid credentials' });
       }
@@ -67,6 +90,20 @@ const Login = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
+            <label>Role</label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="role-select"
+            >
+              <option value="patient">Patient</option>
+              <option value="doctor">Doctor</option>
+              <option value="admin">Administrator</option>
+            </select>
+          </div>
+
+          <div className="form-group">
             <label>Email</label>
             <input
               type="email"
@@ -82,16 +119,30 @@ const Login = () => {
 
           <div className="form-group">
             <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className={errors.password ? 'error' : ''}
-              disabled={isLoading}
-            />
-            {errors.password && <span className="error-message">{errors.password}</span>}
+            <div className="password-input-container">
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                className={errors.password ? 'error' : ''}
+                disabled={isLoading}
+              />
+              {errors.password && <span className="error-message">{errors.password}</span>}
+            </div>
+          </div>
+
+          <div className="form-group checkbox-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="rememberMe"
+                checked={formData.rememberMe}
+                onChange={handleChange}
+              />
+              <span>Remember me</span>
+            </label>
           </div>
 
           <button
