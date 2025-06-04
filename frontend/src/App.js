@@ -1,17 +1,33 @@
 import React from 'react';
-//import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import PatientInfoPage from './pages/PatientInfoPage';
+import Appointments from './pages/Appointments';
+import Contact from './pages/Contact';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import './App.css';
 
 
 function App() {
   return (
-        <div className='Navlist'>
-          <title>ZenithCare</title>
-          <Header/>
-          <Footer/>
-        </div>
+    <AuthProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/patient-info" element={<PatientInfoPage />} />
+          <Route path="/appointments" element={<Appointments />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </AuthProvider>
       
   );
 }

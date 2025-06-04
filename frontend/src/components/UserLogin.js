@@ -1,7 +1,8 @@
 import React, { useEffect, useState }  from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import './UserLogin.css';
-
+import '../pages/PatientInfoPage';
+import { Navigate } from 'react-router-dom';
 const UserLogin = () => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     useEffect(() => {
@@ -15,6 +16,7 @@ const UserLogin = () => {
         window.location.href = "/auth";
       }
     }
+    
     const handleLogout = () => {
       setIsLoggedIn(false);
       localStorage.removeItem('isLoggedIn');

@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import logo from './ZenithCareLogo.png';
-import UserLogin from './UserLogin';
+import { Link } from 'react-router-dom';
+import logo from '../assets/ZenithCareLogo.png'; // 
+//import UserLogin from './UserLogin';
 import Search from './Search';
 import './Header.css';
 
 function Header() {
   const [darkMode, setDarkMode] = useState(false);
-      const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   
-      useEffect(() => {
-          document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  useEffect(() => {
+    document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
       }, [darkMode]);
 
   return (
@@ -17,9 +18,9 @@ function Header() {
       <div className="left-section">
         <img src={logo} alt="ZenithCare logo" className="logo" />
         <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <li><a href="../pages/Home.js">Home</a></li>
-          <li><a href="../pages/Appointment.js">Book Appointment</a></li>
-          <li><a href="../pages/Contact.js">Contact Us</a></li>
+          <li><Link  to="/">Home</Link></li>
+          <li><Link to="/appointment">Book Appointment</Link></li>
+          <li><Link to="/contact">Contact Us</Link></li>
           <li className="search-bar"><Search /></li>
         </ul>
       </div>
@@ -28,10 +29,13 @@ function Header() {
         <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? '☀️' : '🌙'}
         </button>
-        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          ☰
+        <button className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
+          {/* ☰ */}
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
         </button>
-        <UserLogin />
+        <Link to="/login">Login</Link>
       </div>
     </header>
   );
