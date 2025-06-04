@@ -25,8 +25,6 @@ const Login = () => {
     }
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -52,12 +50,15 @@ const Login = () => {
       // Simulating API call
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (formData.email === 'test@example.com' && formData.password === 'password') {
+      // Accept any valid email/password combination for testing
+      if (formData.email && formData.password) {
         if (formData.rememberMe) {
           localStorage.setItem('userEmail', formData.email);
           localStorage.setItem('userRole', formData.role);
         }
 
+        // Store login state
+        localStorage.setItem('isLoggedIn', 'true');
         login();
         setStatus({ type: 'success', message: 'Login successful!' });
 
@@ -73,7 +74,7 @@ const Login = () => {
             setTimeout(() => navigate('/patient-info'), 1000);
         }
       } else {
-        setStatus({ type: 'error', message: 'Invalid credentials' });
+        setStatus({ type: 'error', message: 'Please fill in all required fields' });
       }
     } catch (error) {
       setStatus({ type: 'error', message: 'An error occurred. Please try again.' });
