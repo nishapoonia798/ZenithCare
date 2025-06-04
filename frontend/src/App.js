@@ -7,7 +7,9 @@ import Register from './pages/Register';
 import PatientInfoPage from './pages/PatientInfoPage';
 import Appointments from './pages/Appointments';
 import Contact from './pages/Contact';
-import Header from './components/Header';
+import DoctorDashboard from './pages/DoctorDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import Header from './components/header';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -24,11 +26,13 @@ function App() {
           <Route path="/patient-info" element={<PatientInfoPage />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Routes>
         <Footer />
       </Router>
     </AuthProvider>
-      
+
   );
 }
 
