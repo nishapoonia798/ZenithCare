@@ -1,24 +1,132 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #1a365d;
+  --text-color: #2D3748;
+  --light-text: #718096;
+  --background-light: #F7FAFC;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-light);
+}
+
+/* Main layout */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  margin-top: 80px;
+  /* Adjust based on header height */
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+}
+
+.button-secondary {
+  background-color: var(--secondary-color);
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
 /* Default theme (light) */
 :root {
-    --bg-color: #ffffff;
-    --text-color: #000000;
-    --header-bg: #e0f7f7;
-    --footer-bg: #e0f7f7;
-  }
-  
-  [data-theme='dark'] {
-    --bg-color: #121212;
-    --text-color: #ffffff;
-    --header-bg: #062d2f;
-    --footer-bg: #062d2f;
-  }
-  
-  /* --header-bg: #062d2f; */
-  /* Apply them to body */
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    padding: 0;
-  }
-  
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --header-bg: #e0f7f7;
+  --footer-bg: #e0f7f7;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --header-bg: #062d2f;
+  --footer-bg: #062d2f;
+}
+
+/* --header-bg: #062d2f; */
+/* Apply them to body */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
