@@ -82,7 +82,7 @@ function Header() {
       <div className="top-bar">
         <div className="top-bar-content">
           <div className="contact-info">
-            <span>🏥 24 HOUR BLOOD BANK SERVICE</span>
+            <span>📦 24 HOUR BLOOD BANK SERVICE</span>
             <span>🚑 For Emergency: +1 (555) 123-4567</span>
             <span>📞 For Appointment: +1 (555) 987-6543</span>
           </div>
@@ -93,7 +93,14 @@ function Header() {
       <div className="main-header">
         <div className="header-content">
           <Link to="/" className="logo-container">
-            <img src={logo} alt="ZenithCare logo" className="logo" />
+            <img src={logo} alt="ZenithCare Logo" className="logo" />
+            <div className="logo-content">
+              <h1 className="logo-title">ZenithCare</h1>
+              <p className="logo-tagline">
+                <span>Healthy People,</span>
+                <span>Healthy Planet</span>
+              </p>
+            </div>
           </Link>
 
           <nav className="main-nav">
