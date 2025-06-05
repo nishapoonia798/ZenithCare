@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Login.css';
@@ -14,7 +14,12 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, clearAuth } = useAuth();
+
+  // Clear any existing auth state when mounting Login component
+  useEffect(() => {
+    clearAuth();
+  }, [clearAuth]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -41,6 +46,19 @@ const Login = () => {
     }
   };
 
+  const redirectBasedOnRole = (role) => {
+    switch (role) {
+      case 'doctor':
+        navigate('/doctor-dashboard');
+        break;
+      case 'admin':
+        navigate('/admin-dashboard');
+        break;
+      default:
+        navigate('/patient-info');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -54,29 +72,21 @@ const Login = () => {
       if (formData.email && formData.password) {
         if (formData.rememberMe) {
           localStorage.setItem('userEmail', formData.email);
-          localStorage.setItem('userRole', formData.role);
         }
 
-        // Store login state
-        localStorage.setItem('isLoggedIn', 'true');
-        login();
+        // Login with role
+        login(formData.role);
         setStatus({ type: 'success', message: 'Login successful!' });
 
-        // Redirect based on role
-        switch (formData.role) {
-          case 'doctor':
-            setTimeout(() => navigate('/doctor-dashboard'), 1000);
-            break;
-          case 'admin':
-            setTimeout(() => navigate('/admin-dashboard'), 1000);
-            break;
-          default:
-            setTimeout(() => navigate('/patient-info'), 1000);
-        }
+        // Redirect based on role after a short delay to show success message
+        setTimeout(() => {
+          redirectBasedOnRole(formData.role);
+        }, 500);
       } else {
         setStatus({ type: 'error', message: 'Please fill in all required fields' });
       }
     } catch (error) {
+      console.error('Login error:', error);
       setStatus({ type: 'error', message: 'An error occurred. Please try again.' });
     } finally {
       setIsLoading(false);

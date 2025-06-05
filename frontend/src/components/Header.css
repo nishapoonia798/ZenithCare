@@ -1,7 +1,7 @@
 .header {
-  background-color: var(--header-bg);
-  color: var(--text-color);
-  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #333333;
+  padding: 15px 30px;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,25 +10,38 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
+
+.header.scrolled {
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
 .left-section {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
 }
 
 .right-section {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
+
 .logo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-container {
@@ -41,66 +54,139 @@
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 20px;
+  gap: 30px;
   margin: 0;
   padding: 0;
 }
 
 .nav-links li a {
   text-decoration: none;
-  text-align: center;
-  color: var(--text-color);
-  font-size: 17px;
-  transition: 0.3s;
+  color: #333333;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
 }
 
 .nav-links li a:hover {
-  color: var(--link-hover);
-  text-decoration: underline;
+  color: #4CAF50;
 }
 
-.theme-toggle,
-.hamburger {
-  /* background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: var(--text-color); */
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.theme-toggle {
   background: none;
   border: none;
-  color: white;
-  font-size: 1.5rem;
+  padding: 8px;
   cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #333333;
+  transition: all 0.3s ease;
 }
 
 .search-bar {
-  display: flex;
-  align-items: center;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 20px;
+  }
 }
 
 @media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
   .nav-links {
-    flex-direction: column;
-    background-color: var(--header-bg);
-    position: absolute;
+    position: fixed;
+    left: -100%;
     top: 80px;
-    right: 10px;
-    padding: 20px;
-    border-radius: 10px;
-    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
     width: 100%;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    height: calc(100vh - 80px);
+    align-items: flex-start;
   }
 
   .nav-links.open {
-    display: flex;
-  }
-  .nav-links.show {
-    display: block;  /* Show menu when the 'show' class is added */
+    left: 0;
   }
 
   .search-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
+    width: 100%;
   }
+}
+
+/* Dark mode styles */
+[data-theme='dark'] .header {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+[data-theme='dark'] .nav-links li a {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .bar {
+  background-color: #ffffff;
+}
+
+[data-theme='dark'] .nav-links {
+  background-color: #1a1a1a;
+}
+
+[data-theme='dark'] .theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

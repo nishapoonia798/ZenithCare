@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('overview');
     const [isLoading, setIsLoading] = useState(true);
+    const { isLoggedIn, userRole } = useAuth();
 
     // Sample data - replace with API calls in production
-    const [stats, setStats] = useState({
+    const [stats] = useState({
         totalDoctors: 45,
         totalPatients: 1250,
         activeAppointments: 128,
         revenue: 52460
     });
 
-    const [doctors, setDoctors] = useState([
+    const [doctors] = useState([
         {
             id: 1,
             name: 'Dr. John Smith',
@@ -34,7 +36,7 @@ const AdminDashboard = () => {
         }
     ]);
 
-    const [departments, setDepartments] = useState([
+    const [departments] = useState([
         {
             id: 1,
             name: 'Cardiology',
@@ -67,20 +69,51 @@ const AdminDashboard = () => {
     ]);
 
     useEffect(() => {
-        // Check authentication
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        const userRole = localStorage.getItem('userRole');
-
+        // Check authentication and role
         if (!isLoggedIn || userRole !== 'admin') {
             navigate('/login');
             return;
         }
 
         // Simulate loading data
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
-    }, [navigate]);
+        const loadData = async () => {
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                setIsLoading(false);
+            }
+        };
+
+        loadData();
+    }, [isLoggedIn, userRole, navigate]);
+
+    const handleSaveSettings = (e) => {
+        e.preventDefault();
+        // Implement settings save functionality
+        console.log('Saving settings...');
+    };
+
+    const handleAddDoctor = () => {
+        // Implement add doctor functionality
+        console.log('Adding new doctor...');
+    };
+
+    const handleEditDoctor = (doctorId) => {
+        // Implement edit doctor functionality
+        console.log('Editing doctor:', doctorId);
+    };
+
+    const handleDeleteDoctor = (doctorId) => {
+        // Implement delete doctor functionality
+        console.log('Deleting doctor:', doctorId);
+    };
+
+    const handleAddDepartment = () => {
+        // Implement add department functionality
+        console.log('Adding new department...');
+    };
 
     const renderOverview = () => (
         <div className="dashboard-section">
@@ -138,7 +171,7 @@ const AdminDashboard = () => {
         <div className="dashboard-section">
             <div className="section-header">
                 <h3>Manage Doctors</h3>
-                <button className="add-button">+ Add New Doctor</button>
+                <button className="add-button" onClick={handleAddDoctor}>+ Add New Doctor</button>
             </div>
             <div className="doctors-list">
                 <div className="list-header">
@@ -157,8 +190,18 @@ const AdminDashboard = () => {
                         <span className="rating">⭐ {doctor.rating}</span>
                         <span className={`status ${doctor.status}`}>{doctor.status}</span>
                         <div className="actions">
-                            <button className="action-button edit">Edit</button>
-                            <button className="action-button delete">Delete</button>
+                            <button
+                                className="action-button edit"
+                                onClick={() => handleEditDoctor(doctor.id)}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="action-button delete"
+                                onClick={() => handleDeleteDoctor(doctor.id)}
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
                 ))}
@@ -170,7 +213,7 @@ const AdminDashboard = () => {
         <div className="dashboard-section">
             <div className="section-header">
                 <h3>Departments</h3>
-                <button className="add-button">+ Add Department</button>
+                <button className="add-button" onClick={handleAddDepartment}>+ Add Department</button>
             </div>
             <div className="departments-grid">
                 {departments.map(dept => (
@@ -208,7 +251,7 @@ const AdminDashboard = () => {
             <div className="settings-grid">
                 <div className="settings-card">
                     <h4>Hospital Information</h4>
-                    <form className="settings-form">
+                    <form className="settings-form" onSubmit={handleSaveSettings}>
                         <div className="form-group">
                             <label>Hospital Name</label>
                             <input type="text" defaultValue="ZenithCare Hospital" />

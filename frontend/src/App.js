@@ -9,7 +9,7 @@ import Appointments from './pages/Appointments';
 import Contact from './pages/Contact';
 import DoctorDashboard from './pages/DoctorDashboard';
 import AdminDashboard from './pages/AdminDashboard';
-import Header from './components/header';
+import Header from './components/Header.temp';
 import Footer from './components/Footer';
 import './App.css';
 
