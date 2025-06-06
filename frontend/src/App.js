@@ -9,6 +9,7 @@ import Appointments from './pages/Appointments';
 import Contact from './pages/Contact';
 import DoctorDashboard from './pages/DoctorDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import Hospitals from './components/Hospitals';
 import Header from './components/Header.temp';
 import Footer from './components/Footer';
 import './App.css';
@@ -28,6 +29,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/hospitals" element={<Hospitals />} />
+          <Route path="/hospitals/view-all" element={<Hospitals />} />
+          <Route path="/hospitals/nearest" element={<Hospitals />} />
+          <Route path="/hospitals/facilities" element={<Hospitals />} />
+          <Route path="/hospitals/reviews" element={<Hospitals />} />
         </Routes>
         <Footer />
       </Router>

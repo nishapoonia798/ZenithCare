@@ -17,6 +17,12 @@ function Header() {
       'Infrastructure',
       'Awards & Accreditations'
     ],
+    'Hospitals': [
+      'View All Hospitals',
+      'Find Nearest Location',
+      'Facilities & Services',
+      'Reviews & Ratings'
+    ],
     'Diagnostics': [
       'Audiology & Speech Therapy',
       'Cardiology',
